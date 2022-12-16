@@ -8,9 +8,15 @@ Where `<path>` is the path to the directory containing the TypeScript files. The
 
 ## Installation
 
-To use this utility, you can download the latest release from the releases page on GitHub: https://github.com/pauloportella/delete-ts-ignore/releases
+Clone and build the utility with cargo.
 
-Once downloaded, the utility can be run from the command line by navigating to the directory containing the executable and calling it with the required arguments:
+```
+git clone https://github.com/pauloportella/delete-ts-ignore.git
+cd path/to/delete-ts-ignore
+cargo build --release
+```
+
+The utility can be run from the command line by navigating to the directory containing the executable and calling it with the required arguments:
 
 ```
 cd path/to/delete-ts-ignore
