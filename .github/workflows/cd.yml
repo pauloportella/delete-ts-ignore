@@ -21,11 +21,11 @@ jobs:
           cargo build
           cargo test
       - name: Create release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.DEPLOYMENT_TOKEN }}
+      - id: bump
+      - uses: zwaldowski/match-label-action@v4
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          allowed: major,minor,patch
+      - uses: zwaldowski/semver-release-action@v3
+        with:
+          bump: ${{ steps.bump.outputs.match }}
+          github_token: ${{ secrets.DEPLOYMENT_TOKEN }}
