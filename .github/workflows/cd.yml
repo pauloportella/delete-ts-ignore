@@ -8,11 +8,6 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        target:
-          - aarch64-apple-darwin
-          - x86_64-apple-darwin
 
     steps:
       - uses: actions/checkout@v2
@@ -25,15 +20,6 @@ jobs:
         run: |
           cargo build
           cargo test
-      - uses: actions-rs/cargo@v1
-        with:
-          use-cross: true
-          command: build
-          args: --release --target=${{ matrix.target }}
-      - name: Attach release artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: delete-ts-ignore-release
       - name: Create release
         uses: actions/create-release@v1
         env:
@@ -43,13 +29,3 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-      - name: Upload release assets
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: release/*
-          asset_name: delete-ts-ignore-${{ github.ref }}-macos-{filename}
-          asset_content_type: application/octet-stream
-#
