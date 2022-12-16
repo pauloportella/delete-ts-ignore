@@ -2,10 +2,10 @@
 mod tests {
     use std::fs;
     use std::path::Path;
-    use crate::delete_ts_ignore_error;
+    use crate::delete_ts_ignore;
 
     #[test]
-    fn test_delete_ts_ignore_error() {
+    fn test_delete_ts_ignore() {
         // Create a test directory
         let dir = "test_dir";
         fs::create_dir(dir).unwrap();
@@ -20,8 +20,8 @@ mod tests {
         let tsx_contents = "function hello() {\n  // @ts-ignore\n  return {\n    a: 1,\n  };\n}\n// @ts-expect-error\nexport default hello;";
         fs::write(tsx_file, tsx_contents).unwrap();
 
-        // Call the delete_ts_ignore_error function with the test directory as the input
-        let count = delete_ts_ignore_error(Path::new(dir));
+        // Call the delete_ts_ignore function with the test directory as the input
+        let count = delete_ts_ignore(Path::new(dir));
 
         // Assert that the correct number of lines were deleted
         assert_eq!(count, 4);
