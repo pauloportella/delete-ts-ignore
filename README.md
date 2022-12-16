@@ -8,7 +8,7 @@ Where `<path>` is the path to the directory containing the TypeScript files. The
 
 ## Installation
 
-Clone and build the the utility with cargo
+Clone and build the utility with cargo.
 
 ```
 git clone https://github.com/pauloportella/delete-ts-ignore.git
