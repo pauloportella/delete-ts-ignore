@@ -1,0 +1,30 @@
+name: Build and Test
+
+on: [pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: macOS-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+      - name: Install dependencies
+        run: |
+          cargo install cargo-tarpaulin
+      - name: Build and test
+        run: |
+          cargo build
+          cargo test
+      - name: Generate production compiled package for macOS ARM64
+        run: |
+          cargo build --release --target aarch64-apple-darwin
+          mkdir -p release
+          cp target/aarch64-apple-darwin/release/my-app release/my-app-macos-arm64
+      - name: Generate production compiled package for macOS Intel
+        run: |
+          cargo build --release --target x86_64-apple-darwin
+          mkdir -p release
+          cp target/x86_64-apple-darwin/release/my-app release/my-app-macos-intel

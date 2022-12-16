@@ -1,0 +1,11 @@
+[package]
+name = "delete-ts-ignore"
+version = "0.1.0"
+edition = "2021"
+authors = ["Paulo Portella <hello@pauloportella.dev>"]
+
+[dependencies]
+tempfile = "*"
+
+[dev-dependencies]
+rustc-test = "0.3"
